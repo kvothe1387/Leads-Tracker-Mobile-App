@@ -2,7 +2,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebas
 import {
   getDatabase,
   ref,
-  push
+  push,
+  onValue
 } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js"
 
 const firebaseConfig = {
@@ -31,6 +32,13 @@ function render(leads) {
   }
   ulEl.innerHTML = listItems
 }
+
+// Render all items using onValue
+onValue(referenceInDB, function (snapshot) {
+  const snapshotValues = snapshot.val()
+  const leads = Object.values(snapshotValues)
+  render(leads)
+})
 
 deleteBtn.addEventListener("dblclick", function () {
 
