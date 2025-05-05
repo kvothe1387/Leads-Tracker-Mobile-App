@@ -8,7 +8,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js"
 
 const firebaseConfig = {
-  databaseURL: process.env.DATABASE_URL
+  databaseURL: "https://leads-tracker-app-d084d-default-rtdb.firebaseio.com"
 }
 
 const app = initializeApp(firebaseConfig)
