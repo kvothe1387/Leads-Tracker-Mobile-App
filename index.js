@@ -3,7 +3,8 @@ import {
   getDatabase,
   ref,
   push,
-  onValue
+  onValue,
+  remove
 } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js"
 
 const firebaseConfig = {
@@ -35,13 +36,18 @@ function render(leads) {
 
 // Render all items using onValue
 onValue(referenceInDB, function (snapshot) {
+  // only run the code below if a snapshot exists 
   const snapshotValues = snapshot.val()
-  const leads = Object.values(snapshotValues)
-  render(leads)
+  if (snapshotValues) {
+    const leads = Object.values(snapshotValues)
+    render(leads)
+  } else {
+    render([]) // No leads yet
+  }
 })
-
 deleteBtn.addEventListener("dblclick", function () {
-
+  remove(referenceInDB)
+  ulEl.innerHTML = ""  // clear all the leads from ulEl
 })
 
 inputBtn.addEventListener("click", function () {
